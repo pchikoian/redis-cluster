@@ -40,11 +40,12 @@ services:
     command: >
       sh -c "
         sleep 10 &&
-        redis-cli --cluster create 
-        172.20.0.10:8000 
-        172.20.0.11:8001 
-        --cluster-replicas 1 
-        --cluster-yes
+        redis-cli -h 172.20.0.10 -p 8000 cluster meet 172.20.0.11 8001 &&
+        sleep 2 &&
+        redis-cli -h 172.20.0.10 -p 8000 cluster ADDSLOTSRANGE 0 16383 &&
+        sleep 2 &&
+        # redis-cli -h 172.20.0.11 -p 8001 cluster replicate \$(redis-cli -h 172.20.0.10 -p 8000 cluster myid) &&
+        echo 'Cluster setup complete'
       "
 
 volumes:

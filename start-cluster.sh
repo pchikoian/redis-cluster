@@ -4,7 +4,7 @@ echo "Starting Redis cluster..."
 docker compose up -d
 
 echo "Waiting for cluster initialization..."
-sleep 15
+sleep 30
 
 echo "Checking cluster status..."
 echo "Node 1 status:"
