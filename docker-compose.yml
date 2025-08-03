@@ -5,8 +5,8 @@ services:
     image: redis:7-alpine
     container_name: redis-node-1
     ports:
-      - "7000:7000"
-      - "17000:17000"
+      - "8000:8000"
+      - "18000:18000"
     volumes:
       - ./redis-master.conf:/usr/local/etc/redis/redis.conf
       - redis-node-1-data:/data
@@ -19,8 +19,8 @@ services:
     image: redis:7-alpine
     container_name: redis-node-2
     ports:
-      - "7001:7001"
-      - "17001:17001"
+      - "8001:8001"
+      - "18001:18001"
     volumes:
       - ./redis-slave.conf:/usr/local/etc/redis/redis.conf
       - redis-node-2-data:/data
@@ -41,8 +41,8 @@ services:
       sh -c "
         sleep 10 &&
         redis-cli --cluster create 
-        172.20.0.10:7000 
-        172.20.0.11:7001 
+        172.20.0.10:8000 
+        172.20.0.11:8001 
         --cluster-replicas 1 
         --cluster-yes
       "
